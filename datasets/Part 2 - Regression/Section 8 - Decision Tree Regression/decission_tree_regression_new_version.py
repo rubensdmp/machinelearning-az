@@ -18,7 +18,7 @@ dataset = pd.read_csv('Position_Salaries.csv')
 X = dataset.iloc[:, 1:2].values
 y = dataset.iloc[:, 2].values
 
-
+#%%
 # Dividir el data set en conjunto de entrenamiento y conjunto de testing
 """
 from sklearn.model_selection import train_test_split
@@ -36,9 +36,13 @@ from sklearn.tree import DecisionTreeRegressor
 regression = DecisionTreeRegressor(random_state = 0)
 regression.fit(X, y)
 
+#%%
+
 # Predicción de nuestros modelos
 y_pred = regression.predict([[6.5]])
 print(y_pred)
+
+#%%
 
 # Visualización de los resultados del Modelo Polinómico
 X_grid = np.arange(min(X), max(X), 0.1)
