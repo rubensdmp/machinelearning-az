@@ -20,11 +20,34 @@ y = dataset.iloc[:, 4].values
 
 
 # Codificar datos categóricos
+#from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+#labelencoder_X = LabelEncoder()
+#X[:, 3] = labelencoder_X.fit_transform(X[:, 3])
+#onehotencoder = OneHotEncoder(categorical_features=[3])
+#X = onehotencoder.fit_transform(X).toarray()
+
+
+# Codificar datos categóricos
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+ 
 labelencoder_X = LabelEncoder()
 X[:, 3] = labelencoder_X.fit_transform(X[:, 3])
-onehotencoder = OneHotEncoder(categorical_features=[3])
-X = onehotencoder.fit_transform(X).toarray()
+ 
+# The column numbers to be transformed (here is [0] but can be [0, 1, 3])
+# remainder='passthrough' Leave the rest of the columns untouched)
+ct = ColumnTransformer([('one_hot_encoder', OneHotEncoder(categories='State'), [3])],
+                       remainder='passthrough')
+                          
+ 
+#onehotencoder = OneHotEncoder(categorical_features=[0])
+#X = onehotencoder.fit_transform(X).toarray()
+X = ct.fit_transform(X)
+labelencoder_y = LabelEncoder()
+y = labelencoder_y.fit_transform(y)
+
+
+
 
 # Evitar la trampa de las variables ficticias
 X = X[:, 1:]

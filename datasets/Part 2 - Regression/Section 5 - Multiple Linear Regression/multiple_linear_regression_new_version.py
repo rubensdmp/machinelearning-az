@@ -12,12 +12,18 @@ Created on Sun Mar  3 13:10:07 2019
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+print('aca')
+
 
 # Importar el data set
 dataset = pd.read_csv('50_Startups.csv')
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, 4].values
 
+print('hola')
+
+
+#%%
 
 # Codificar datos categóricos
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -28,6 +34,8 @@ X[:, 3] = labelencoder_X.fit_transform(X[:, 3])
 onehotencoder = make_column_transformer((OneHotEncoder(), [3]), remainder = "passthrough")
 X = onehotencoder.fit_transform(X)
 
+#%%
+
 # Evitar la trampa de las variables ficticias
 X = X[:, 1:]
 
@@ -35,6 +43,7 @@ X = X[:, 1:]
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
+#%%
 
 # Escalado de variables
 """from sklearn.preprocessing import StandardScaler
@@ -52,6 +61,7 @@ y_pred = regression.predict(X_test)
 
 # Construir el modelo óptimo de RLM utilizando la Eliminación hacia atrás
 import statsmodels.api as sm
+#50 es por las filas y 1 columna, esto podríamos mejorarlo con un len
 X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
 SL = 0.05
 
